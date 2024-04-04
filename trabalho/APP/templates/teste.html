@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>teste</title>
+    </head>
+    <body>
+        <div>
+ 
+            <form method="post"action ="{%url  'teste2' %}">
+                {% csrf_token %}
+                <label for="numero">numero1</label>
+                <input id="numero" type="number" name="numero" class="form-control ml-sm-2">
+                <label for="numero2"></label>
+                <input type="number" id ="numero2" name="numero2" class="form-control ml-sm-2">
+            <button id="btnFiltrarDatas" class="btn btn-success" type="submit" title="Filtrar vendas por intervalo de datas"><i class="fa fa-search"></i></button>
+        </form>   
+        </div>
+    </body>
+</html>

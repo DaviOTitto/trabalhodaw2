@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+
+{# Adding select2 css #}
+{% block css %}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{# Adding select2 js #}
+{% block js %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+{% endblock %}
+{% block content %}
+  <div class="row">
+    <form form="post" action = "{%url  'formulario' %}">
+        {% csrf_token %}
+        <input type="text" id="testo">
+        <input type="checkbox"  id = "boolean" name="vehicle1" value="checkbox">
+        <input type="number" id="numero">
+        <input list="colors" id="list">
+        <Label for="radio"> valor 1 </Label>
+        <input type="radio" id="radio" value="1">
+        <Label for="radio"> valor 2 </Label>
+        <input type="radio" id="radio" value="2">
+        <Label for="radio"> valor 3 </Label>
+        <input type="radio" id="radio" value="3">
+        <Label for="radio"> valor 4 </Label>
+        <input type="radio" id="radio" value="4">
+        <datalist id="colors">
+            <option>Red</option>
+            <option>Yellow</option>
+            <option>Blue</option>
+            <option>Green</option>
+            <option>Orange</option>
+            <option>Purple</option>
+            <option>Black</option>
+            <option>White</option>
+            <option>Gray</option>
+        </datalist>
+        <button id="btn-formulario" class="btn btn-dark" type="submit"><i class="fa fa-search"></i></button>
+    </div>
+    {%endblock%}
