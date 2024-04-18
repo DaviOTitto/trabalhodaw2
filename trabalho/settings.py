@@ -33,22 +33,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'<nomedoprojeto>.<nomedoapp>'
     'trabalho.APP',
- 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'django.contrib.templates',
-    # thirty apps
     'django.contrib.postgres',
     'bootstrapform',
     'django_extensions',
     'crispy_forms',
-     #local App adcionado em 10/06/2022 por Davi
-   # 'users.apps.UsersConfig',
 ]
 
 
