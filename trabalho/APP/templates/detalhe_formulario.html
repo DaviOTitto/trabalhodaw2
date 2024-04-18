@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="col-lg-8">
+	<div class="col-md-2 column">
+	</div>
+	<div class="col-md-offset-3 column">
+	</div>
+
+	</br>
+
+    <table class="table table-user-information">
+  		<tbody>
+            <tr>
+                <th class="col-md-3 text-right">Texto</th>
+                <td>{{object.texto}}</td>
+              </tr>
+              <tr>
+            <tr>
+	        <th class="col-md-3 text-right">Inteiro</th>
+	        <td>{{object.interio}}</td>
+	      </tr>
+	      <tr>
+	        <th class="col-md-3 text-right">Boolean</th>
+	        <td>{{object.Boolean}}</td>
+	      </tr>
+	      <tr>
+	        <th class="col-md-3 text-right">lista </th>
+	        <td>{{object.lista}}</td>
+	      </tr>
+	      <tr>
+	        <th class="col-md-3 text-right">escolha radio</th>
+	        <td>{{object.escolha_radio}}/</td>
+	      </tr>
+	      <tr>
+	      </tr>
+        </tbody>
+    </table>

@@ -7,5 +7,6 @@ from .models import *
 
 class TesteForm(forms.ModelForm):
     class Meta:
-        model = Teste
-        fields = '__all__'
+        fields = ('produto_ite_aux_cod','produto_ite_aux_nome','produto_ite_aux_quant','produto_ite_aux_valor')
+
+        field_order = ('produto_ite_aux_cod','produto_ite_aux_nome','produto_ite_aux_valor','produto_ite_aux_quant')

@@ -16,7 +16,8 @@ class Teste(models.Model):
     Boolean = models.BooleanField("booelan",blank=True,null=True)
     lista = models.CharField("escolha", choices = options_choices)
     escolha_radio = models.CharField("escolharadio", null =True)
-
+    def get_detalhe(self):
+        return f'/teste/{self.id}'
 
 
 class Doador(models.Model):

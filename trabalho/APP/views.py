@@ -14,9 +14,13 @@ def inserttest(request):
     if request.method == 'POST':
       forms = TesteForm(request.POST, request.FILES,
                           instance=order_forms, prefix='main')
+      
+      forms.escolha_radio = request.Post.get("opcaoRadio",False)
+      
       if forms.is_valid() and formset.is_valid():
+      
         forms.save 
-    
+        return HttpResponseRedirect(resolve_url('app:detalhe_formulario',forms.pk))
     else:
         forms = TesteForm(instance=order_forms, prefix='main')
         
@@ -43,7 +47,6 @@ mar6 = TemplateView.as_view(template_name='resultado>6.html')
 men6 = TemplateView.as_view(template_name='resultado<6.html')
 
 
-
 def formulario(request):
   if request.method == 'post':  
     booelan = request.POST.get("boolean",False)
@@ -59,6 +62,13 @@ def formulario(request):
     str(boolean +"texto "+ texto +  "numero "+ numero + "lista " + string + "radio" + var +"  fim")
     print(str)
   return render(request,'formulario.html')
+def detalhe_formulario(request, pk):
+    object = get_object_or_404(Teste,pk=pk)
+    context = {
+        'object':object,
+    }
+    return render(request,'detalhe_formulario.html',context)
+
 
 
 def teste2(request):
