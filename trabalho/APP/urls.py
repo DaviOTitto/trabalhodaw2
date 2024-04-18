@@ -9,7 +9,7 @@ from .views import *
 
 urlpatterns = [
     path('',teste,name="teste"),
-    path('conc/',inserttest,name='formu'),
+    path('conc2/',inserttest,name='formu'),
     path('conc/',teste2,name='teste2'),
     path('mar6/',mar6,name='mar6'),
     path('men6/',men6,name='men6'),
