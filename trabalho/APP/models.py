@@ -1,10 +1,13 @@
 import uuid
 import re
-from django.db import models
+
 #from stdimage.models import StdImageField
 from django.utils import timezone
 from pathlib import Path, os
 from django.db.models import signals
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.core.validators import MinLengthValidator, MaxLengthValidator,MinValueValidator,MaxValueValidator
 
 class Teste(models.Model):
     options_choices = (
@@ -13,18 +16,18 @@ class Teste(models.Model):
     )
     id = models.AutoField("id",primary_key=True, null=False)
     texto = models.TextField("texto", null=True, max_length=255, validators=[
-        models.MinLengthValidator(2, "O texto deve ter no mínimo 2 caracteres."),
-        models.MaxLengthValidator(255, "O texto deve ter no máximo 255 caracteres.")
+        MinLengthValidator(2, "O texto deve ter no mínimo 2 caracteres."),
+        MaxLengthValidator(255, "O texto deve ter no máximo 255 caracteres.")
     ])
     interio = models.IntegerField("inteiro", blank=True, validators=[
-        models.MinValueValidator(1, "O valor inteiro deve ser maior que 0."),
-        models.MaxValueValidator(1000, "O valor inteiro não pode exceder 1000.")
+      MinValueValidator(1, "O valor inteiro deve ser maior que 0."),
+      MaxValueValidator(1000, "O valor inteiro não pode exceder 1000.")
     ])
     Boolean = models.BooleanField("booelan", blank=True, null=True)
     lista = models.CharField("escolha", choices=options_choices)
-    escolha_radio = models.CharField("escolharadio", null=True, max_length=30, validators=[
-        models.RequiredValidator("Este campo é obrigatório.")
-    ])
+    escolha_radio = models.CharField("escolharadio", null=False, max_length=30)
+     
+    
     def get_detalhe(self):
         return f'/teste/{self.id}'
 
