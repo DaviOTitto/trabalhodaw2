@@ -1,4 +1,4 @@
-from django.shortcuts import render, resolve_url
+from django.shortcuts import render, resolve_url, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -15,12 +15,16 @@ def inserttest(request):
       forms = TesteForm(request.POST, request.FILES,
                           instance=order_forms, prefix='main')
       
-      forms.escolha_radio = request.Post.get("opcaoRadio",False)
+      ESCOLHA = request.POST.get("opcaoRadio",False)
+      print(ESCOLHA)
+    
+      order_forms.escolha_radio =str(ESCOLHA)
+      print(order_forms.escolha_radio)
       
-      if forms.is_valid() and formset.is_valid():
+      if forms.is_valid() :
       
-        forms.save 
-        return HttpResponseRedirect(resolve_url('app:detalhe_formulario',forms.pk))
+        teste_instance = forms.save()
+        return HttpResponseRedirect(resolve_url('detalhe_formulario',teste_instance.pk))
     else:
         forms = TesteForm(instance=order_forms, prefix='main')
         

@@ -11,11 +11,20 @@ class Teste(models.Model):
         ('1', 'option 1 '),
         ('F', 'option 2 '),
     )
-    texto = models.TextField("texto",null = True)
-    interio = models.IntegerField("inteiro",blank=True)
-    Boolean = models.BooleanField("booelan",blank=True,null=True)
-    lista = models.CharField("escolha", choices = options_choices)
-    escolha_radio = models.CharField("escolharadio", null =True)
+    id = models.AutoField("id",primary_key=True, null=False)
+    texto = models.TextField("texto", null=True, max_length=255, validators=[
+        models.MinLengthValidator(2, "O texto deve ter no mínimo 2 caracteres."),
+        models.MaxLengthValidator(255, "O texto deve ter no máximo 255 caracteres.")
+    ])
+    interio = models.IntegerField("inteiro", blank=True, validators=[
+        models.MinValueValidator(1, "O valor inteiro deve ser maior que 0."),
+        models.MaxValueValidator(1000, "O valor inteiro não pode exceder 1000.")
+    ])
+    Boolean = models.BooleanField("booelan", blank=True, null=True)
+    lista = models.CharField("escolha", choices=options_choices)
+    escolha_radio = models.CharField("escolharadio", null=True, max_length=30, validators=[
+        models.RequiredValidator("Este campo é obrigatório.")
+    ])
     def get_detalhe(self):
         return f'/teste/{self.id}'
 

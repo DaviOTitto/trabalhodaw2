@@ -14,5 +14,5 @@ urlpatterns = [
     path('mar6/',mar6,name='mar6'),
     path('men6/',men6,name='men6'),
     path('formulario/',formulario,name='formulario'),
-
+    path('<int:pk>/',view=detalhe_formulario,name='detalhe_formulario'),
 ]
