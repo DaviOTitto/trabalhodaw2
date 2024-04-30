@@ -23,7 +23,7 @@ class Teste(models.Model):
       MinValueValidator(1, "O valor inteiro deve ser maior que 0."),
       MaxValueValidator(1000, "O valor inteiro não pode exceder 1000.")
     ])
-    Boolean = models.BooleanField("booelan", blank=True, null=True)
+    Boolean = models.BooleanField("booelan", blank=True, null=True,default=False)
     lista = models.CharField("escolha", choices=options_choices)
     escolha_radio = models.CharField("escolharadio", null=False, max_length=30)
      
