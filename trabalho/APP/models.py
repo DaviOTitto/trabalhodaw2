@@ -14,6 +14,13 @@ class Teste(models.Model):
         ('1', 'option 1 '),
         ('F', 'option 2 '),
     )
+    CHOICES = (
+        ('1', 'Opção 1'),
+        ('2', 'Opção 2'),
+        ('3', 'Opção 3'),
+        ('4', 'Opção 4'),
+    )
+    escolha = models.CharField(max_length=1, choices=CHOICES)
     id = models.AutoField("id",primary_key=True, null=False)
     texto = models.TextField("texto", null=True, max_length=255, validators=[
         MinLengthValidator(2, "O texto deve ter no mínimo 2 caracteres."),
@@ -25,7 +32,7 @@ class Teste(models.Model):
     ])
     Boolean = models.BooleanField("booelan", blank=True, null=True,default=False)
     lista = models.CharField("escolha", choices=options_choices)
-    escolha_radio = models.CharField("escolharadio", null=False, max_length=30)
+    escolha_radio = models.CharField("escolharadio", null=False, choices = CHOICES)
      
     
     def get_detalhe(self):

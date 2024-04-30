@@ -15,11 +15,11 @@ def inserttest(request):
       forms = TesteForm(request.POST, request.FILES,
                           instance=order_forms, prefix='main')
       
-      ESCOLHA = request.POST.get("opcaoRadio",False)
-      print(ESCOLHA)
+     # ESCOLHA = request.POST.get("opcaoRadio",False)
+      #print(ESCOLHA)
     
-      order_forms.escolha_radio =str(ESCOLHA)
-      print(order_forms.escolha_radio)
+    #  order_forms.escolha_radio =str(ESCOLHA)
+    #  print(order_forms.escolha_radio)
       
       if forms.is_valid() :
       

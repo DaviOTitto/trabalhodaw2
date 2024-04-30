@@ -8,8 +8,9 @@ from .models import *
 class TesteForm(forms.ModelForm):
     class Meta:
          model = Teste
-         fields = ('texto','interio','Boolean','lista')
+         fields = ('texto','interio','Boolean','lista','escolha_radio')
          widgets = {
             'Boolean': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'escolha_radio': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
-         field_order = ('texto','interio','Boolean','lista')
+         field_order = ('texto','interio','Boolean','lista','escolha_radio')
