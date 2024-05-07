@@ -8,21 +8,18 @@ from django.core.paginator import Paginator
 from pathlib import Path, os
 from django.views.generic import TemplateView
 from .forms import *
+from .models import *
 
 def inserttest(request):
     order_forms = Teste()
     if request.method == 'POST':
       forms = TesteForm(request.POST, request.FILES,
-                          instance=order_forms, prefix='main')
-      
-     # ESCOLHA = request.POST.get("opcaoRadio",False)
-      #print(ESCOLHA)
-    
-    #  order_forms.escolha_radio =str(ESCOLHA)
-    #  print(order_forms.escolha_radio)
-      
+                          instance=order_forms, prefix='main')      
+  #   ESCOLHA = request.POST.get("opcaoRadio",False)
+  #   print(ESCOLHA)    
+  #   order_forms.escolha_radio =str(ESCOLHA)
+  #   print(order_forms.escolha_radio)      
       if forms.is_valid() :
-      
         teste_instance = forms.save()
         return HttpResponseRedirect(resolve_url('detalhe_formulario',teste_instance.pk))
     else:
