@@ -41,15 +41,14 @@ class Teste(models.Model):
 
 class Doador(models.Model):
     options_choices = (
-        ('A', 'option 1 '),
-        ('B', 'option 2 '),
-        ('AB','option 3 '),
-        ('O', 'option 4 '),
-        
+        ('A', ' tipo A  '),
+        ('B', 'tipo  B  '),
+        ('AB','tibo AB  '),
+        ('O', 'tipo  O  '),        
     )
     CHOICES = (
-        ('+', 'Opção 1'),
-        ('-', 'Opção 2'),
+        ('+', 'RH +   '),
+        ('-', 'RH -   '),
     )
     codigo = models.AutoField("alto completo",null=False,primary_key=True)
     nome = models.CharField("Nome",blank=True,max_length=200)
