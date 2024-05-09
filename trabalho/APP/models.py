@@ -40,12 +40,23 @@ class Teste(models.Model):
 
 
 class Doador(models.Model):
+    options_choices = (
+        ('A', 'option 1 '),
+        ('B', 'option 2 '),
+        ('AB','option 3 '),
+        ('O', 'option 4 '),
+        
+    )
+    CHOICES = (
+        ('+', 'Opção 1'),
+        ('-', 'Opção 2'),
+    )
     codigo = models.AutoField("alto completo",null=False,primary_key=True)
     nome = models.CharField("Nome",blank=True,max_length=200)
     cpf = models.CharField("CPF",blank=True,max_length=11)
     contato = models.CharField("numero",blank=True,max_length=12)
-    tipo_sanguineo = models.CharField("tipo sanguineo",blank=True,max_length=4)
-    rh = models.CharField("RH",blank=True,max_length=1)
+    tipo_sanguineo = models.CharField("tipo sanguineo",blank=True,null =False ,max_length=4 ,choices = options_choices)
+    rh = models.CharField("RH",blank=True,max_length=1 ,choices= CHOICES)
     tipo_rh_corretos = models.BooleanField("RH corretos",blank=True)
     situacao = models.CharField("situcao", blank=True)
     class Meta:

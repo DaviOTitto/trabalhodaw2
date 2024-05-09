@@ -14,3 +14,12 @@ class TesteForm(forms.ModelForm):
             'escolha_radio': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
          field_order = ('texto','interio','Boolean','lista','escolha_radio')
+class DoadorForm(forms.ModelForm):
+      model = Doador
+      fields = ('nome','cpf','contato','tipo_sanguineo','rh','tipo_rh_corretos','situacao')
+      widgets = {
+            'Boolean': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'tipo_sanguineo': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'rh': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+        }
+      field_order = ('nome','cpf','contato','tipo_sanguineo','rh','tipo_rh_corretos','situacao')
