@@ -20,7 +20,6 @@ class Teste(models.Model):
         ('3', 'Opção 3'),
         ('4', 'Opção 4'),
     )
-    escolha = models.CharField(max_length=1, choices=CHOICES)
     id = models.AutoField("id",primary_key=True, null=False)
     texto = models.TextField("texto", null=True, max_length=255, validators=[
         MinLengthValidator(2, "O texto deve ter no mínimo 2 caracteres."),
