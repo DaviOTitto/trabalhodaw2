@@ -46,6 +46,7 @@ def insertdoador(request):
     return render(request,'novo_doador.html',context)        
          
 
+
 def teste(request):
     numero = int(request.GET.get("numero",False))
     numero2 = int(request.GET.get("numero2",False))
@@ -60,6 +61,26 @@ def teste(request):
     return render(request,'teste.html')
 mar6 = TemplateView.as_view(template_name='resultado>6.html')
 men6 = TemplateView.as_view(template_name='resultado<6.html')
+
+def Doador_list(request):
+    object_list = Doador.objects.all().order_by('codigo')
+
+    # pesquisa na lista de clientes pelo nome do cliente        
+    search = request.GET.get('search_box')
+    if search:
+        object_list = object_list.filter(nome_cad__icontains=search)
+
+    paginator = Paginator(object_list, 20)
+    page = request.GET.get('page', 1)
+    try:
+        clientes = paginator.page(page)
+    except PageNotAnInteger:
+        clientes = paginator.page(1)
+    except EmptyPage:
+        clientes = paginator.page(paginator.num_pages)
+
+    context = {'clientes':clientes}
+    return render(request,'lista_doador.html',context)
 
 
 def formulario(request):

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de  Doador{% endblock title %}
+{% block subtitle %}Lista de Doador{% endblock %}
+
+{% block content %}
+    <form class="navbar-form navbar-right" action="." method="get">
+        <!-- add -->
+        <a href="#">
+            <button id="new_customer" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span> Adicionar
+            </button>
+        </a>
+        <!-- search form -->
+        <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control">
+        <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+	</form>
+	{% if object_list %}
+		<div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="text-center">codigo</th>
+						<th class="text-center">Nome</th>
+						<th class="text-center">cpf</th>
+						<th class="text-center">contato</th>
+						<th class="text-center">tipo_sanguineo</th>
+						<th class="text-center">rh</th>
+                        <th class="text-center">tipo_rh_corretos</th>  
+						<th class="text-center">situacao</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for cadastro in object_list %}
+					<tr>
+						<td class="text-center">{{ cadastro.codigo }}</a></td>
+						<td class="text-center">{{ cadastro.nome}}</td>
+						<td class="text-center">{{ cadastro.cpf}}</td>
+						<td class="text-center">{{ cadastro.contato }}</td>
+						<td class="text-center">{{ cadastro.tipo_sanguineo}}</td>
+						<td class="text-center">{{ cadastro.rh}}</td>
+                        <td class="text-center">{{ cadastro.tipo_rh_corretos}}</td>
+                        <td class="text-center">{{ cadastro.situacao}}</td>
+                    </tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% else %}
+  <p class="alert alert-warning">Sem itens na lista.</p>
+{% endif %}
+
+<hr>
+<div>
+<h3>{{ object_list|length }} Doadore{{ object_list|length|pluralize }}</h3>
+<h4><b>Total:</b> {{ page_obj.paginator.count }} Doador{{ page_obj.paginator.count|pluralize }}</h4>
+</div>
+
+{% if object_list %}
+  <!-- pagination -->
+  {% include "_pagination.html" %}
+{% endif %}
+
+{% endblock content %}

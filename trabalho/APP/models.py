@@ -70,6 +70,7 @@ class Doacao(models.Model):
     class Meta:
         ordering = ['codigo']
         verbose_name = 'Doador'
+        verbose_name_plural = 'Doadores'
 
 
 
