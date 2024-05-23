@@ -64,22 +64,25 @@ men6 = TemplateView.as_view(template_name='resultado<6.html')
 
 def Doador_list(request):
     object_list = Doador.objects.all().order_by('codigo')
-
+    print(object_list)
     # pesquisa na lista de clientes pelo nome do cliente        
     search = request.GET.get('search_box')
     if search:
-        object_list = object_list.filter(nome_cad__icontains=search)
+        object_list = object_list.filter(nome=search)
 
     paginator = Paginator(object_list, 20)
     page = request.GET.get('page', 1)
     try:
-        clientes = paginator.page(page)
+        doador = paginator.page(page)
     except PageNotAnInteger:
-        clientes = paginator.page(1)
+        doador = paginator.page(1)
     except EmptyPage:
-        clientes = paginator.page(paginator.num_pages)
+        doador = paginator.page(paginator.num_pages)
 
-    context = {'clientes':clientes}
+    context = {
+      'object_list':object_list,
+      'doador':doador}
+    
     return render(request,'lista_doador.html',context)
 
 

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="col-lg-8">
+	<div class="col-md-2 column">
+	</div>
+	<div class="col-md-offset-3 column">
+	</div>
+
+	</br>
+
+    <table class="table table-user-information">
+  		<tbody>
+            <tr>
+                <th class="col-md-3 text-right">codigo</th>
+                <td>{{object.codigo}}</td>
+              </tr>
+              <tr>
+            <tr>
+	        <th class="col-md-3 text-right">nome</th>
+	        <td>{{object.nome}}</td>
+	      </tr>
+	      <tr>
+	        <th class="col-md-3 text-right">cpf</th>
+	        <td>{{object.cpf}}</td>
+	      </tr>
+	      <tr>
+	        <th class="col-md-3 text-right">contato </th>
+	        <td>{{object.contato}}</td>
+	      </tr>
+	      <tr>
+	        <th class="col-md-3 text-right">tipo sanguineo</th>
+	        <td>{{object.tipo_sanguineo}}/</td>
+	      </tr>
+          <tr>
+	        <th class="col-md-3 text-right">rh</th>
+	        <td>{{object.rh}}/</td>
+	      </tr>
+          <tr>
+	        <th class="col-md-3 text-right">tipo sanguineo</th>
+	        <td>{{object.tipo_sanguineo}}/</td>
+	      </tr>
+          <tr>
+	        <th class="col-md-3 text-right">tipo sanguineo</th>
+	        <td>{{object.tipo_sanguineo}}/</td>
+	      </tr>
+          <tr>
+	        <th class="col-md-3 text-right">tipo sanguineo</th>
+	        <td>{{object.tipo_sanguineo}}/</td>
+	      </tr>
+	      <tr>
+	      </tr>
+        </tbody>
+    </table>
+	{%endblock%}

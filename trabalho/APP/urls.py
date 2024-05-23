@@ -17,5 +17,5 @@ urlpatterns = [
     path('formulario/',formulario,name='formulario'),
     path('adcionar_doador/',insertdoador,name='insertdoador'),
     path('<int:pk>/',view=detalhe_formulario,name='detalhe_formulario'),
-    path('Doador/<int:pk>/',view=detalhe_formulario,name='detalhe_formulario'),
+    path('Doador/<int:pk>/',view=detalhe_doador,name='detalhe_doador'),
 ]
