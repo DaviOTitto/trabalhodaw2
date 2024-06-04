@@ -4,16 +4,23 @@
 {% block subtitle %}Lista de Doador{% endblock %}
 
 {% block content %}
-    <form class="navbar-form navbar-right" action="." method="get">
+    <form class="navbar-form navbar-form" action="." method="get">
         <!-- add -->
         <a href="#">
             <button id="new_customer" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-plus"></span> Adicionar
             </button>
-        </a>
-        <!-- search form -->
-        <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control">
-        <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+			<form method="get">
+				{{ form.nome.label_tag }} {{ form.nome }}
+				{{ form.cpf.label_tag }} {{ form.cpf }}
+				{{ form.contato.label_tag }} {{ form.contato }}
+				{{ form.tipo_sanguineo__icontains.label_tag }} {{ form.rh }}
+				{{ form.rh.label_tag }} {{ form.rh }}
+				{{ form.tipo_rh_corretos.label_tag }} {{ form.tipo_rh_corretos }}
+				{{ form.situacao.label_tag }} {{ form.situacao }}
+				<!-- Adicione os outros campos aqui -->
+				<button type="submit">Pesquisar</button>
+			</form>
 	</form>
 	{% if object_list %}
 		<div>
