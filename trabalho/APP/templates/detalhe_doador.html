@@ -53,4 +53,16 @@
 	      </tr>
         </tbody>
     </table>
+	<a href="{{ object.get_modifica }}">
+		<button id="altera_doador" type="button" class="btn btn-primary">
+			<span class="glyphicon glyphicon-plus"></span> Modificar
+		</button>
+		<a href="{{ object.get_exclui }}">
+			<button id="Deleta Doador" type="button" class="btn btn-primary">
+				<span class="glyphicon glyphicon-plus"></span> Deletar
+			</button>
+		<a href="{% url 'Doador_list' %}">
+			<button id="doador_list" type="button" class="btn btn-primary">
+				<span class="glyphicon glyphicon-plus"></span> Voltar
+			</button>	
 	{%endblock%}

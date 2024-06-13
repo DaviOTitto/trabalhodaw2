@@ -78,6 +78,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "templates"),
 )
 WSGI_APPLICATION = 'trabalho.wsgi.application'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Database

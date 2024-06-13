@@ -18,4 +18,6 @@ urlpatterns = [
     path('adcionar_doador/',insertdoador,name='insertdoador'),
     path('<int:pk>/',view=detalhe_formulario,name='detalhe_formulario'),
     path('Doador/<int:pk>/',view=detalhe_doador,name='detalhe_doador'),
+    path('deleta_Doador/<int:pk>/',view=deleta_doador,name='deleta_doador'),
+    path('altera_doador/<int:pk>/',view=altera_doador,name='altera_doador'),
 ]

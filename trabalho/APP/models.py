@@ -60,6 +60,13 @@ class Doador(models.Model):
     class Meta:
         ordering = ['codigo']
         verbose_name = 'Doador'
+    def get_detalhe(self):
+        return f'/teste/Doador/{self.codigo}/'
+    def get_modifica(self):
+        return f'/teste/altera_doador/{self.codigo}/'
+    def get_exclui(self):
+        return f'/teste/deleta_Doador/{self.codigo}/'
+
 class Doacao(models.Model):
     codigo = models.AutoField("alto completo",null=False,primary_key=True)
     Data = models.DateField("Data",auto_now_add=True,auto_now=False)

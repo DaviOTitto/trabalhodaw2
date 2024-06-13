@@ -6,21 +6,36 @@
 {% block content %}
     <form class="navbar-form navbar-form" action="." method="get">
         <!-- add -->
-        <a href="#">
+        <a href="{% url 'insertdoador' %}">
             <button id="new_customer" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-plus"></span> Adicionar
             </button>
+			</a>
 			<form method="get">
-				{{ form.nome.label_tag }} {{ form.nome }}
-				{{ form.cpf.label_tag }} {{ form.cpf }}
-				{{ form.contato.label_tag }} {{ form.contato }}
-				{{ form.tipo_sanguineo__icontains.label_tag }} {{ form.rh }}
-				{{ form.rh.label_tag }} {{ form.rh }}
-				{{ form.tipo_rh_corretos.label_tag }} {{ form.tipo_rh_corretos }}
-				{{ form.situacao.label_tag }} {{ form.situacao }}
-				<!-- Adicione os outros campos aqui -->
+			<div class="row">
+				<div class="col-xs-8 col-md-5">
+				
+			<p>{{ form.nome.label_tag }}</p>	
+				{{ form.nome }}
+				<p>
+				{{ form.cpf.label_tag }}</p>
+				{{ form.cpf }}
+				<p>
+				{{ form.contato.label_tag }}</p>
+				{{ form.contato }}
+				<p>
+				{{ form.tipo_sanguineo.label_tag }}</p>
+				{{ form.tipo_sanguineo }}
+				<p>{{ form.rh.label_tag }}</p>
+				{{ form.rh }}
+				<p></p>{{ form.situacao.label_tag }}</p>
+				{{ form.situacao }}
 				<button type="submit">Pesquisar</button>
+				</div>
+			</div>	
 			</form>
+			
+			
 	</form>
 	{% if object_list %}
 		<div>
@@ -40,7 +55,9 @@
 				<tbody>
 				{% for doador in object_list %}
 					<tr>
-						<td class="text-center">{{ doador.codigo }}</a></td>
+						<td class="text-center"><a href="{{ doador.get_detalhe }}"
+							title="Clique para ver os detalhes do doador selecionado">
+						   {{ doador.codigo}}</a></td>
 						<td class="text-center">{{ doador.nome}}</td>
 						<td class="text-center">{{ doador.cpf}}</td>
 						<td class="text-center">{{ doador.contato }}</td>

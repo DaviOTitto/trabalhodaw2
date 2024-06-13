@@ -14,14 +14,14 @@ class TesteForm(forms.ModelForm):
             'escolha_radio': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
          field_order = ('texto','interio','Boolean','lista','escolha_radio')
-
 class DoadorForm(forms.ModelForm):
     class Meta:
-      model = Doador
-      fields = ('nome','cpf','contato','tipo_sanguineo','rh','tipo_rh_corretos','situacao')
-      widgets = {
+        model = Doador
+        fields = ('nome', 'cpf', 'contato', 'tipo_sanguineo', 'rh', 'tipo_rh_corretos', 'situacao')
+        widgets = {
             'tipo_rh_corretos': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'tipo_sanguineo': forms.RadioSelect(attrs={'class': 'form-check-input'}),
             'rh': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
-      field_order = ('nome','cpf','contato','tipo_sanguineo','rh','tipo_rh_corretos','situacao')
+    # Correção: field_order deve estar fora da classe Meta
+    field_order = ('nome', 'cpf', 'contato', 'tipo_sanguineo', 'rh', 'tipo_rh_corretos', 'situacao')

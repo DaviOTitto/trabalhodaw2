@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+{% block title %}Alterar Doador{% endblock %}
+{% block subtitle %}Alterar Doador{% endblock %}
+
+{% block content %}
+    <br>
+	<div class="row align-items-center">
+		<div class="col-sm-3">
+		</div>
+		<div class="col-sm-6">
+			<h4>Você pode alterar sua conta usando o formulário a seguir:</h4>
+		</div>
+	</div>
+	<br>
+	<div class="row align-items-center">
+		<div class="col-sm-3">
+		</div>
+		<div class="col-sm-6">
+			<form method="post" enctype="multipart/form-data">
+				{{ forms|bootstrap }}
+				{% csrf_token %}
+				<p><input type="submit" class="btn btn-primary" value="Salvar alterações" title="Clique para salvar as alterações realizadas no perfil"></p>
+			</form>
+		</div>
+	</div>
+{% endblock %}

@@ -64,69 +64,65 @@ men6 = TemplateView.as_view(template_name='resultado<6.html')
 
 def altera_doador(request,pk):
     order_forms = Doador()
-    doador = get_object_or_404(Doador,pk=pk)                        
-    doador =  Doador.objects.all().order_by('pk')                   
+    doador = get_object_or_404(Doador,pk=pk)                                         
     i = 1
     if request.method == 'GET':
         forms = DoadorForm(instance=doador,prefix='main')
     else:
-        forms = DoadorForm(request.POST,request.FILES,instance=venda,prefix='main')
-        if forms.is_valid() and formset.is_valid():
+        forms = DoadorForm(request.POST,request.FILES,instance=doador,prefix='main')
+        if forms.is_valid():
             forms = forms.save(commit=False)
             # apagado user.profile da linha 163 , Davi Oliveira Tito 02/05/2022
-            i = 0
-            for inline_form in formset:
-                inline_form = inline_form.save(commit=False)
-                i += 1
+            i = 0     
             forms.save()
-            formset.save()
-            return HttpResponseRedirect(resolve_url('core:detalhe_doador',forms.pk))
+            return HttpResponseRedirect(resolve_url('detalhe_doador',forms.pk))
         else:
-            messages.warning(request,'Erro interno ao alterar a Doador!')
+            print("erro no doador")
     context = {
         'forms':forms,
     }
-    return render(request,'core/venda/altera_doador.html',context)
+    return render(request,'altera_doador.html',context)
 
 def deleta_doador(request,pk):
+    print("entrou ")
     get_object_or_404(Doador,pk=pk).delete()
-    return redirect('core:listar_vendas')
+    return redirect('Doador_list')
   
-
 def Doador_list(request):
-    # Obtém todos os objetos do modelo Doador 
+    # Obtém todos os objetos da tabela Doador
     object_list = Doador.objects.all().order_by('codigo')
-    doador_Ver = Doador()
-    forms = None  # Defina a variável fora do bloco condicional
 
-    if request.method == 'POST':
-        forms = DoadorForm(request.POST, request.FILES,
-                       instance=doador_Ver, prefix='main')
-    # Processa a pesquisa (se houver)
-    nome = request.GET.get('nome')
-    cpf = request.GET.get('cpf')
-    contato = request.GET.get('contato')
-    tipo_sanguineo = request.GET.get('tipo_sanguineo')
-    rh = request.GET.get('rh')
-    tipo_rh_corretos = request.GET.get('tipo_rh_corretos')
-    situacao = request.GET.get('situacao')
+    # Instancia o formulário com os dados da requisição GET
+    form = DoadorForm(request.GET)
 
-    if nome:
-        object_list = object_list.filter(nome__icontains=nome)
-    if cpf:
-        object_list = object_list.filter(cpf__icontains=cpf)
-    if contato:
-        object_list = object_list.filter(contato__icontains=contato)
-    if tipo_sanguineo:
-        object_list = object_list.filter(tipo_sanguineo__icontains=tipo_sanguineo)
-    if rh:
-        object_list = object_list.filter(rh__icontains=rh)
-    if tipo_rh_corretos:
-        object_list = object_list.filter(tipo_rh_corretos__icontains=tipo_rh_corretos)
-    if situacao:
-        object_list = object_list.filter(situacao__icontains=situacao)
+    # Verifica se o formulário é válido
+    if form.is_valid():
+        # Obtém os dados do formulário
+        nome = form.cleaned_data.get('nome')
+        cpf = form.cleaned_data.get('cpf')
+        contato = form.cleaned_data.get('contato')
+        tipo_sanguineo = form.cleaned_data.get('tipo_sanguineo')
+        rh = form.cleaned_data.get('rh')
+        tipo_rh_corretos = form.cleaned_data.get('tipo_rh_corretos')
+        situacao = form.cleaned_data.get('situacao')
 
-    # Configura a paginação
+        # Aplica os filtros conforme necessário
+        if nome:
+            object_list = object_list.filter(nome__icontains=nome)
+        if cpf:
+            object_list = object_list.filter(cpf__icontains=cpf)
+        if contato:
+            object_list = object_list.filter(contato__icontains=contato)
+        if tipo_sanguineo:
+            object_list = object_list.filter(tipo_sanguineo__icontains=tipo_sanguineo)
+        if rh:
+            object_list = object_list.filter(rh__icontains=rh)
+        if tipo_rh_corretos:
+            object_list = object_list.filter(tipo_rh_corretos__exact=tipo_rh_corretos)
+        if situacao:
+            object_list = object_list.filter(situacao__icontains=situacao)
+
+    # Paginação dos resultados
     paginator = Paginator(object_list, 20)
     page = request.GET.get('page', 1)
     try:
@@ -137,16 +133,9 @@ def Doador_list(request):
         doador = paginator.page(paginator.num_pages)
 
     context = {
-        'forms' : forms,
         'object_list': object_list,
         'doador': doador,
-        'nome': nome,
-        'cpf': cpf,
-        'contato': contato,
-        'tipo_sanguineo': tipo_sanguineo,
-        'rh': rh,
-        'tipo_rh_corretos': tipo_rh_corretos,
-        'situacao': situacao,
+        'form': form
     }
 
     return render(request, 'lista_doador.html', context)
