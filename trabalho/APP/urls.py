@@ -20,4 +20,5 @@ urlpatterns = [
     path('Doador/<int:pk>/',view=detalhe_doador,name='detalhe_doador'),
     path('deleta_Doador/<int:pk>/',view=deleta_doador,name='deleta_doador'),
     path('altera_doador/<int:pk>/',view=altera_doador,name='altera_doador'),
+    path('insere_doacao/',view=insertdoacao,name='insertdoacao '),
 ]

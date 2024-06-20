@@ -46,6 +46,29 @@ def insertdoador(request):
     return render(request,'novo_doador.html',context)        
          
 
+def insertdoacao(request):
+    doadores = Doador.objects.all()
+
+    # Crie uma lista de tuplas (código, nome) para usar no campo de escolha
+    lista_doadores = [(doador.codigo, doador.nome) for doador in doadores]
+
+    order_forms = Doacao()
+    if request.method == 'POST':
+      forms = DoacaoForm(request.POST, request.FILES,
+                          instance=order_forms, prefix='main')          
+      if forms.is_valid() :
+        teste_instance = forms.save()
+      #  return HttpResponseRedirect(resolve_url('detalhe_doador',teste_instance.pk))
+    else:
+        forms = DoacaoForm(instance=order_forms, prefix='main')
+        
+    context = {
+        'forms': forms,
+        'lista_doadores':lista_doadores,
+      }
+    return render(request,'insere_doacao.html',context)        
+         
+
 
 def teste(request):
     numero = int(request.GET.get("numero",False))

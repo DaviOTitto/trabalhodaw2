@@ -69,8 +69,8 @@ class Doador(models.Model):
 
 class Doacao(models.Model):
     codigo = models.AutoField("alto completo",null=False,primary_key=True)
-    Data = models.DateField("Data",auto_now_add=True,auto_now=False)
-    Hora = models.TimeField("time",auto_now_add=True,auto_now=False)
+    Data = models.DateField("Data",blank=True,null=False)
+    Hora = models.TimeField("time",blank=True,null=False)
     volume = models.DecimalField("volume",decimal_places = 2 , max_digits = 7)
     situacao = models.CharField("situcao", blank=True)
     codigo_doador = models.ForeignKey(Doador,db_column='codigo_doador',related_name='codigo_do',on_delete=models.CASCADE)  

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+
+{# Adding select2 css #}
+{% block css %}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+{# Adding select2 js #}
+{% block js %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+{% endblock %}
+{% block content %}
+  <div class="row">
+      <div class="col-xs-10 col-md-12">
+          <form action="" method="POST">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="col-xs-8 col-md-5">
+                      {{ forms|bootstrap }}              
+                    <select name="codigo_doador">
+                      {% for codigo, nome in lista_doadores %}
+                          <option value="{{ codigo }}">{{ nome }}</option>
+                      {% endfor %}
+                    </select>
+                    </div>
+              </div>
+              <div class="form-inline buttons">
+                      <i class="fa fa-times"></i>
+                      Cancelar
+                  </a>
+                  <button class="btn btn-primary pull-right" value="Save">
+                      <i class="fa fa-floppy-o"></i>
+                      Salvar
+                  </button>
+              </div>
+          </form>
+      </div>
+  </div>
+{% endblock %}
