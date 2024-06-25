@@ -44,7 +44,7 @@ def insertdoador(request):
         'forms': forms,
       }
     return render(request,'novo_doador.html',context)        
-         
+        
 
 def insertdoacao(request):
     doadores = Doador.objects.all()
@@ -55,7 +55,13 @@ def insertdoacao(request):
     order_forms = Doacao()
     if request.method == 'POST':
       forms = DoacaoForm(request.POST, request.FILES,
-                          instance=order_forms, prefix='main')          
+                          instance=order_forms, prefix='main')
+      #codigo =  int(request.POST.get("id_main-codigo_doador"))
+      #doador = Doador.objects.get(pk=codigo)
+
+    # Modifique o campo tipo_rh_corretos
+      #doador.tipo_rh_corretos = True
+     # doador.save()         
       if forms.is_valid() :
         teste_instance = forms.save()
       #  return HttpResponseRedirect(resolve_url('detalhe_doador',teste_instance.pk))
@@ -110,6 +116,47 @@ def deleta_doador(request,pk):
     print("entrou ")
     get_object_or_404(Doador,pk=pk).delete()
     return redirect('Doador_list')
+
+def listar_doacoes(request):
+    object_list = Venda.objects.all().order_by('-numero_ven')
+
+    # filtro na lista por datas
+    data_inicial = request.GET.get('data_inicial')
+    data_final = request.GET.get('data_final')
+    print(data_inicial)
+    print(data_final)
+    if data_inicial and data_final:
+        data_final = parse(data_final) + timedelta(1)
+        object_list = object_list.filter(data_ven__range=[data_inicial, data_final])
+
+    # pesquisa na lista de vendas pelo nome do cliente        
+    search = request.GET.get('search_box')
+    if search:
+        object_list = object_list.filter(codigo_doador__nome__icontains=search)
+
+    # retorna as vendas do cliente, vindo da página de customers
+    if 'cadastros_sale' in request.GET:
+        object_list = object_list.filter(cliente_ven=request.GET['cadastros_sale'])
+
+    # retorna as vendas do usuário, vindo da página de usuários
+    if 'usuario_sale' in request.GET:
+        object_list = object_list.filter(usuario_ven=request.GET['usuario_sale'])
+
+    # retorna as vendas do setor, vindo da página de setor    
+    if 'setor_sale' in request.GET:
+        object_list = object_list.filter(setor_ven=request.GET['setor_sale'])
+
+    paginator = Paginator(object_list, 20)
+    page = request.GET.get('page', 1)
+    try:
+        vendas = paginator.page(page)
+    except PageNotAnInteger:
+        vendas = paginator.page(1)
+    except EmptyPage:
+        vendas = paginator.page(paginator.num_pages)
+
+    context = {'vendas':vendas}
+    return render(request,'lista_doacoes.html',context)
   
 def Doador_list(request):
     # Obtém todos os objetos da tabela Doador

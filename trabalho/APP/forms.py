@@ -25,14 +25,14 @@ class DoadorForm(forms.ModelForm):
         }
     # Correção: field_order deve estar fora da classe Meta
     field_order = ('nome', 'cpf', 'contato', 'tipo_sanguineo', 'rh', 'tipo_rh_corretos', 'situacao')
+class MyModelChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.nome
 class DoacaoForm(forms.ModelForm):
-    # Crie uma variável para armazenar o queryset e o rótulo vazio
-    
+    # Outros campos do formulário aqui
+
+    codigo_doador = forms.ModelChoiceField(queryset=Doador.objects.all(), empty_label=None)
 
     class Meta:
-        doador_choices = forms.ModelChoiceField(queryset=Doador.objects.all(), empty_label=None)
         model = Doacao
         fields = ('Data', 'Hora', 'volume', 'situacao', 'codigo_doador')
-        widgets = {
-            'codigo_doador': doador_choices,  # Use a variável aqui
-        }

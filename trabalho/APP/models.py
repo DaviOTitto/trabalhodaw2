@@ -66,6 +66,8 @@ class Doador(models.Model):
         return f'/teste/altera_doador/{self.codigo}/'
     def get_exclui(self):
         return f'/teste/deleta_Doador/{self.codigo}/'
+    def __str__(self):
+        return self.nome
 
 class Doacao(models.Model):
     codigo = models.AutoField("alto completo",null=False,primary_key=True)
