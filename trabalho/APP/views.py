@@ -9,6 +9,11 @@ from pathlib import Path, os
 from django.views.generic import TemplateView
 from .forms import *
 from .models import * 
+from dateutil.parser import parse 
+from datetime import timedelta
+
+home = TemplateView.as_view(template_name='index.html')
+
 
 def inserttest(request):
     order_forms = Teste()
@@ -35,7 +40,8 @@ def insertdoador(request):
       forms = DoadorForm(request.POST, request.FILES,
                           instance=order_forms, prefix='main')          
       if forms.is_valid() :
-        teste_instance = forms.save()
+        forms.instance.situacao = 'ativo'
+        teste_instance = forms.save()        
         return HttpResponseRedirect(resolve_url('detalhe_doador',teste_instance.pk))
     else:
         forms = DoadorForm(instance=order_forms, prefix='main')
@@ -114,7 +120,9 @@ def altera_doador(request,pk):
 
 def deleta_doador(request,pk):
     print("entrou ")
-    get_object_or_404(Doador,pk=pk).delete()
+    doador = get_object_or_404(Doador,pk=pk)
+    doador.situacao = 'inativo'
+    doador.save() 
     return redirect('Doador_list')
 
 def listar_doacoes(request):
@@ -127,7 +135,7 @@ def listar_doacoes(request):
     print(data_final)
     if data_inicial and data_final:
         data_final = parse(data_final) + timedelta(1)
-        object_list = object_list.filter(data_ven__range=[data_inicial, data_final])
+        object_list = object_list.filter(Data__range=[data_inicial, data_final])
 
     # pesquisa na lista de vendas pelo nome do cliente        
     search = request.GET.get('search_box')
