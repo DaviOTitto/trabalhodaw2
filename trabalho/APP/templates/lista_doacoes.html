@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Vendas{% endblock title %}
+{% block subtitle %}Lista de Vendas{% endblock subtitle %}
+{% block numeroPagina %}0180-230{% endblock numeroPagina %}
+
+{% block content %}
+    <form class="navbar-form navbar" action="#" method="get">
+    	<div class="pull-right">
+    		<span>
+	    		<button type="button" action="#" id="btnFiltro" class="btn btn-info" title="Abrir menu de filtros"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
+	    	</span>
+	    	<span>
+	        <!-- add -->
+		        <a href="{% url 'insertdoacao' %}">
+		            <button id="new_sale" type="button" class="btn btn-primary" title="Criar uma nova venda"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
+		        </a>
+    	    </span>
+    	</div>	   	
+        <div id="filtros" class="pull-left hidden">
+	        <!-- filtro por datas -->
+	        <label for="data_inicial">Data Inicial: </label>
+	        <input id="data_inicial" type="date" name="data_inicial" class="form-control ml-sm-2">
+	        <label for="data_final">Data Final: </label>
+	        <input type="date" id ="data_final" name="data_final" class="form-control ml-sm-2">
+	        <button id="btnFiltrarDatas" class="btn btn-success" type="submit" title="Filtrar vendas por intervalo de datas"><i class="fa fa-search"></i></button>
+	        <!-- search form -->
+	        <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control" title="Filtrar as vendas realizadas pelo id do setor">
+	        <button id="btnFiltrarNome" type="submit" class="btn btn-success form-control" title="Filtrar vendas pelo nome do cliente"><i class="fa fa-search"></i></button>
+        </div>
+        
+	</form>
+	<div>
+                {% if object_list %}
+                <div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center">codigo</th>
+                                <th class="text-center">Data</th>
+                                <th class="text-center">Hora</th>
+                                <th class="text-center">volume</th>
+                                <th class="text-center">situacao</th>
+                                <th class="text-center">codigo_doador</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for doacao in object_list %}
+                            <td class="text-center" ><a>{{doacao.codigo }}</td>
+                            <td class="text-center">{{doacao.Data}}</td>
+                            <td class="text-center">{{doacao.Hora}}</td>
+                            <td class="text-center">{{doacao.volume}}</td>
+                            <td class="text-center">{{doacao.situacao}}</td>
+                            <td class="text-center">{{doacao.codigo_doador.nome}}</td>
+
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        {% else %}
+          <p class="alert alert-warning">Sem itens na lista.</p>
+        {% endif %} 
+<hr>
+<div>
+<h3>{{ object_list|length }} doacao {{ doacoes|length|pluralize }}</h3>
+<h4><b>Total:</b> {{ doacao.paginator.count }} doacao{{ doacao.paginator.count|pluralize }}</h4>
+</div>
+
+{% if object_list.has_other_pages %}
+<div class="row text-center">
+    <div class="col-lg-12">
+		<ul class="pagination">
+		    {% if object_list.has_previous %}
+		    	<li><a href="?page={{ object_list.previous_page_number }}">&laquo;</a></li>
+		        <li><a href="?page=1">1</a></li>
+		        {% if object_list.previous_page_number != 1 %}
+			        <li><a href="?page={{ object_list.previous_page_number }}">{{ vendas.previous_page_number }}</a></li>
+		        {% endif %}
+		    {% else %}
+		      <li class="disabled"><span>&laquo;</span></li>
+		    {% endif %}
+        	<li class="active"><span>{{ vendas.number }} <span class="sr-only">(current)</span></span></li>
+	        {% if object_list.has_next %}
+	        	{% if object_list.next_page_number != vendas.paginator.num_pages %}
+		            <li><a href="?page={{ object_list.next_page_number }}">{{ vendas.next_page_number }}</a></li>
+		        {% endif %}
+	            <li><a href="?page={{ object_list.paginator.num_pages }}">{{ vendas.paginator.num_pages }}</a></li>
+	            <li><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+	        {% endif %}
+		</ul>
+	</div>
+</div>
+{% endif %}
+<script type="text/javascript">
+	const btnFiltros = document.querySelector("#btnFiltro");
+	btnFiltros.addEventListener('click', function(evento) {
+		evento.preventDefault();
+		const seletorFiltros = document.querySelector("#filtros");
+		if(seletorFiltros.classList.contains("hidden")) {
+			seletorFiltros.classList.remove('hidden');
+		} else {
+			seletorFiltros.classList.add('hidden');
+		}
+	});
+</script>
+{% endblock content %}

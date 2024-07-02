@@ -118,7 +118,7 @@ def deleta_doador(request,pk):
     return redirect('Doador_list')
 
 def listar_doacoes(request):
-    object_list = Venda.objects.all().order_by('-numero_ven')
+    object_list = Doacao.objects.all().order_by('-codigo')
 
     # filtro na lista por datas
     data_inicial = request.GET.get('data_inicial')
@@ -135,16 +135,16 @@ def listar_doacoes(request):
         object_list = object_list.filter(codigo_doador__nome__icontains=search)
 
     # retorna as vendas do cliente, vindo da página de customers
-    if 'cadastros_sale' in request.GET:
-        object_list = object_list.filter(cliente_ven=request.GET['cadastros_sale'])
+   # if 'cadastros_sale' in request.GET:
+    #    object_list = object_list.filter(codigo_doador=request.GET['cadastros_sale'])
 
     # retorna as vendas do usuário, vindo da página de usuários
-    if 'usuario_sale' in request.GET:
-        object_list = object_list.filter(usuario_ven=request.GET['usuario_sale'])
+    #if 'usuario_sale' in request.GET:
+      #  object_list = object_list.filter(usuario_ven=request.GET['usuario_sale'])
 
     # retorna as vendas do setor, vindo da página de setor    
-    if 'setor_sale' in request.GET:
-        object_list = object_list.filter(setor_ven=request.GET['setor_sale'])
+   #if 'setor_sale' in request.GET:
+      #  object_list = object_list.filter(setor_ven=request.GET['setor_sale'])
 
     paginator = Paginator(object_list, 20)
     page = request.GET.get('page', 1)
@@ -155,7 +155,7 @@ def listar_doacoes(request):
     except EmptyPage:
         vendas = paginator.page(paginator.num_pages)
 
-    context = {'vendas':vendas}
+    context = {'object_list':object_list}
     return render(request,'lista_doacoes.html',context)
   
 def Doador_list(request):
