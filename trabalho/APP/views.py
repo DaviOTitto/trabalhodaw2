@@ -56,7 +56,7 @@ def insertdoacao(request):
     doadores = Doador.objects.all()
 
     # Crie uma lista de tuplas (código, nome) para usar no campo de escolha
-    lista_doadores = [(doador.codigo, doador.nome) for doador in doadores]
+   
 
     order_forms = Doacao()
     if request.method == 'POST':
@@ -76,7 +76,6 @@ def insertdoacao(request):
         
     context = {
         'forms': forms,
-        'lista_doadores':lista_doadores,
       }
     return render(request,'insere_doacao.html',context)        
          
